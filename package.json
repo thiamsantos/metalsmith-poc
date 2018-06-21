@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "serve": "browser-sync start -s 'public' -f 'public'",
     "build": "webpack --mode development && node build",
     "prebuild:watch": "npm run build",
-    "build:watch": "webpack --mode development -w --hide-modules & chokidar 'assets/**/*' 'content/**/*' 'layouts/**/*' 'site.yml' -c 'node build' -t 100",
-    "build:prod": "webpack --mode production && node build"
+    "build:watch": "webpack --mode development -w --hide-modules & chokidar 'assets' 'src' 'content' 'layouts' 'site.yml' -c 'node build' -t 100 & npm run serve",    "build:prod": "webpack --mode production && node build"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,7 @@
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
+    "browser-sync": "^2.24.4",
     "chokidar-cli": "^1.2.0",
     "clean-webpack-plugin": "^0.1.19",
     "cpy": "^7.0.1",

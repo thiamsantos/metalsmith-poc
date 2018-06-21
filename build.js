@@ -40,9 +40,9 @@ function copyAssets() {
 
 Metalsmith(__dirname)
   .metadata(getMetadata())
+  .clean(false)
   .source('./content')
   .destination('./public')
-  .clean(true)
   .use(copyAssets())
   .use(
     favicons({
