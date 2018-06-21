@@ -1,0 +1,19 @@
+{% extends "base.njk" %}
+
+{% block content %}
+  <header>
+    <p>
+      <a href="/">Home</a>
+    </p>
+  </header>
+  <h1>{{ title }}</h1>
+  <p>{{ description }}</p>
+
+  {{ contents | safe }}
+
+  <footer>
+    <p>Generated with {{ generator }}</p>
+  </footer>
+
+{% endblock %}
+
