@@ -5,6 +5,10 @@
   <title>{{ title }}</title>
   <meta name="description" content="{{ description }}">
   <link rel="stylesheet" href="{{ assets.css }}">
+
+  {% for icon in favicons.html %}
+    {{ icon | safe }}
+  {% endfor %}
 </head>
 <body>
   {% block content %}

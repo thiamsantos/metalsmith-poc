@@ -25,6 +25,7 @@
     "jstransformer-nunjucks": "^0.5.0",
     "metalsmith": "^2.3.0",
     "metalsmith-debug": "^1.2.0",
+    "metalsmith-favicons": "^1.0.0",
     "metalsmith-in-place": "^4.1.1",
     "metalsmith-layouts": "^2.1.0",
     "metalsmith-markdown": "^0.2.2",

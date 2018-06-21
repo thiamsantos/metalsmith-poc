@@ -7,6 +7,7 @@ const markdown = require('metalsmith-markdown')
 const layouts = require('metalsmith-layouts')
 const permalinks = require('metalsmith-permalinks')
 const sitemap = require('metalsmith-sitemap')
+const favicons = require('metalsmith-favicons')
 
 function getMetadata() {
   return yaml.safeLoad(
@@ -43,6 +44,17 @@ Metalsmith(__dirname)
   .destination('./public')
   .clean(true)
   .use(copyAssets())
+  .use(
+    favicons({
+      src: 'logo.png',
+      dest: 'favicons/',
+      icons: {
+        android: true,
+        appleIcon: true,
+        favicons: true
+      }
+    })
+  )
   .use(markdown())
   .use(permalinks())
   .use(layouts())
