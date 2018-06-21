@@ -2,7 +2,7 @@ const path = require('path')
 const fs = require('fs')
 const yaml = require('js-yaml')
 const cpy = require('cpy')
-const Metalsmith = require('metalsmith')
+const metalsmith = require('metalsmith')
 const markdown = require('metalsmith-markdown')
 const layouts = require('metalsmith-layouts')
 const permalinks = require('metalsmith-permalinks')
@@ -16,7 +16,7 @@ function getMetadata() {
 }
 
 function copyAssets() {
-  return function(files, metalsmith, done) {
+  return function (files, metalsmith, done) {
     const manifest = JSON.parse(
       fs.readFileSync(path.resolve(__dirname, 'assets/manifest.json'), 'utf-8')
     )
@@ -38,7 +38,7 @@ function copyAssets() {
   }
 }
 
-Metalsmith(__dirname)
+metalsmith(__dirname)
   .metadata(getMetadata())
   .clean(false)
   .source('./content')
@@ -63,7 +63,7 @@ Metalsmith(__dirname)
       hostname: 'https://brainn.co/'
     })
   )
-  .build(function(err, files) {
+  .build(err => {
     if (err) {
       throw err
     }
