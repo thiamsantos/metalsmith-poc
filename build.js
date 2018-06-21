@@ -49,4 +49,5 @@ Metalsmith(__dirname)
     if (err) {
       throw err
     }
+    console.info('Metalsmith finished build')
   })

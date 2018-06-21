@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode development",
-    "build:watch": "npm run build -- -w --hide-modules",
-    "build:prod": "webpack --mode production"
+    "build": "webpack --mode development && node build",
+    "prebuild:watch": "npm run build",
+    "build:watch": "webpack --mode development -w --hide-modules & chokidar 'assets/**/*' 'content/**/*' 'layouts/**/*' 'site.yml' -c 'node build' -t 100",
+    "build:prod": "webpack --mode production && node build"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
+    "chokidar-cli": "^1.2.0",
     "clean-webpack-plugin": "^0.1.19",
     "cpy": "^7.0.1",
     "css-loader": "^0.28.11",
@@ -34,5 +36,8 @@
     "webpack-assets-manifest": "^3.0.1",
     "webpack-cli": "^3.0.8",
     "webpack-manifest-plugin": "^2.0.3"
+  },
+  "dependencies": {
+    "metalsmith-debug": "^1.2.0"
   }
 }
