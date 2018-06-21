@@ -1,30 +1,82 @@
 const path = require('path')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const WebpackAssetsManifest = require('webpack-assets-manifest')
+const cssnext = require('postcss-cssnext')
+const cssnano = require('cssnano')
+const easyImport = require('postcss-easy-import')
 
 module.exports = {
   entry: {
-    site: path.resolve(__dirname, 'src/main.js')
+    site: path.resolve(__dirname, 'src/index.js')
+  },
+  resolve: {aliasFields: ['browser']},
+  plugins: [
+    new CleanWebpackPlugin(['assets']),
+    new MiniCssExtractPlugin({
+      filename: 'style.[contenthash].css',
+      chunkFilename: '[id].[contenthash].css'
+    }),
+    new WebpackAssetsManifest()
+  ],
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          name: 'vendor',
+          chunks: 'all',
+          minChunks: 2
+        }
+      }
+    }
   },
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: 'css-loader'
-        })
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: 'babel-loader'
+      },
+      {
+        test: /\.s?css$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              localIdentName: '[local]--[hash:base64]'
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: () => {
+                return [
+                  easyImport(),
+                  cssnext({
+                    warnForDuplicates: false
+                  }),
+                  cssnano({
+                    discardUnused: {
+                      fontFace: false,
+                      keyframes: false
+                    },
+                    zindex: false,
+                    reduceIdents: false
+                  })
+                ]
+              }
+            }
+          }
+        ]
       }
     ]
   },
   output: {
-    path: path.resolve(__dirname, 'build'),
-    filename: '[name].[chunkhash].js'
-  },
-  plugins: [
-    new ExtractTextPlugin('style.[contenthash].css'),
-    new WebpackAssetsManifest({
-      output: path.resolve(__dirname, 'manifest.json')
-    })
-  ]
+    filename: '[name].[chunkhash].js',
+    path: path.resolve(__dirname, 'assets'),
+    publicPath: '/assets/'
+  }
 }
