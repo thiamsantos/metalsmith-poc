@@ -1,3 +1,8 @@
-import './main.css'
+import header from './scripts/header'
+import './index.css'
 
-console.log('hey')
+function main() {
+  header()
+}
+
+window.addEventListener('load', main)

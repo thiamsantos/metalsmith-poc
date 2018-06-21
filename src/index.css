@@ -1,0 +1,7 @@
+@import "styles/settings/*.css";
+
+@import "styles/generic/*.css";
+
+@import "styles/base/*.css";
+
+@import "styles/components/*.css";
