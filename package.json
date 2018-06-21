@@ -59,7 +59,8 @@
     "singleQuote": true,
     "semi": false,
     "bracketSpacing": false,
-    "trailingComma": "none"
+    "trailingComma": "none",
+    "tabWidth": 2
   },
   "xo": {
     "space": true,
